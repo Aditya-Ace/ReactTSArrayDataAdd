@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import { TextInput } from "./components/TextInput";
 function App() {
+  const [addCardData, setAddCardData] = useState("");
+  const [addCards, setAddCards] = useState<Array<string>>([]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAddCardData(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setAddCards(prevState => [...prevState, addCardData]);
+    setAddCardData("");
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="App"
+      style={{ textAlign: "center", margin: "0 auto", marginTop: "10em" }}
+    >
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          type="text"
+          placeholder="Add Anything"
+          handleChange={handleChange}
+          value={addCardData}
+        />
+        <button type="submit">Add</button>
+      </form>
+      {addCards.map(addCard => (
+        <h3>{addCard}</h3>
+      ))}
     </div>
   );
 }
