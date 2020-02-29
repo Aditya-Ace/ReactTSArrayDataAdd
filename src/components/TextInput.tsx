@@ -5,13 +5,15 @@ interface Props {
   placeholder?: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  name?: string;
 }
 
 export const TextInput: React.FC<Props> = ({
   type,
   placeholder,
   handleChange,
-  value
+  value,
+  name
 }) => {
   return (
     <input
@@ -19,6 +21,7 @@ export const TextInput: React.FC<Props> = ({
       placeholder={placeholder}
       onChange={handleChange}
       value={value}
+      name={name}
     />
   );
 };
